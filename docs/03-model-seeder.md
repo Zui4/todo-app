@@ -227,6 +227,7 @@ phpMyAdmin の `tasks` テーブルにも 5 件入っていることを確認し
 
 **演習 3-A**
 Tinker を使って、自分の今日の予定を 3 件追加してください。
+\App\Models\Task::create(['name' => '絆創膏を買う', 'status' => false])
 
 **演習 3-B**
 Tinker で次の 2 つを実行し、返ってくる件数の違いを説明できるようにしてください。
@@ -251,3 +252,4 @@ Task::where('status', false)->get();
 | `Table 'todo_app.tasks' doesn't exist` | 第 2 章の `php artisan migrate` がまだ |
 
 ➡ 次は [第 4 章 一覧表示（Read）](04-controller-index.md)
+

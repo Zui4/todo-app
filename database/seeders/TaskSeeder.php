@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Task;
 
 class TaskSeeder extends Seeder
 {
@@ -13,9 +14,9 @@ class TaskSeeder extends Seeder
     public function run()
     {
         $names = [
-            '牛乳を買う',
+            'お茶を買う',
             '洗濯物をたたむ',
-            'Laravelの課題を進める',
+            '課題を進める',
             '部屋を掃除する',
         ];
 
