@@ -14,7 +14,7 @@ Route::get('/', function () {
 });
 
 Route::resource('tasks', TaskController::class)
-    ->only(['index', 'store']);
+    ->only(['index', 'store', 'edit', 'update']);
 
     Route::patch('/tasks/{id}/complete', [TaskController::class, 'complete'])
-    ->name('tasks.complete', $task->id);
+    ->name('tasks.complete');

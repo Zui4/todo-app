@@ -5,7 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Task;
 class TaskController extends Controller
+
 {
+    private array $rules = [
+        'name' => 'required|max:100',
+    ];
+
+    private array $messages = [
+        'name.required' => 'タスク名を入力してください。',
+        'name.max'      => 'タスク名は100文字以内で入力してください。',
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -38,14 +47,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|max:100|unique:tasks,name',
-        ], [
-            'name.required' => 'タスク名を入力してください。',
-            'name.max'      => 'タスク名は100文字以内で入力してください。',
-            `name.unique`   => '同じ名前で登録できません',
-            
-        ]);
+        $validated = $request->validate($this->rules, $this->messages);
 
         Task::create([
             'name'   => $validated['name'],
@@ -72,9 +74,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+   public function edit($id)
     {
-        //
+        $task = Task::findOrFail($id);
+
+        return view('tasks.edit', compact('task'));
     }
 
     /**
@@ -84,9 +88,15 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate($this->rules, $this->messages);
+
+        $task = Task::findOrFail($id);
+        $task->name = $validated['name'];
+        $task->save();
+
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -107,4 +117,16 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index');
     }
+
+
+ 
+    public function undo ($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->status = false;
+        $task->save();
+
+        return redirect()->route('tasks.index');
+    }
 }
+

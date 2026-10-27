@@ -38,7 +38,9 @@
                             @csrf
                             @method('PATCH')
                             <button type="submit" class="btn-success btn-sm">完了</button>
+                            <button type="submit" class="btn-success btn-sm">未完了</button>
                         </form>
+                         <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-accent btn-sm">編集</a>
                     </td>
                 </tr>
             @endforeach
